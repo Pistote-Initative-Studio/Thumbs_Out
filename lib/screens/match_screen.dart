@@ -114,8 +114,10 @@ class _MatchScreenState extends State<MatchScreen> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              'assets/images/dojo_mat_topdown.png',
+              'assets/images/pvpbackground.png',
               fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) =>
+                  Container(color: Colors.grey),
             ),
           ),
           Column(
@@ -178,8 +180,7 @@ class _MatchScreenState extends State<MatchScreen> {
               ),
             ],
           ),
-          if (countdownText != null)
-            CountdownOverlay(text: countdownText!),
+          if (countdownText != null) CountdownOverlay(text: countdownText!),
         ],
       ),
     );
