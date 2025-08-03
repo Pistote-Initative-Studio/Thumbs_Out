@@ -21,13 +21,13 @@ class TapFlashOverlay extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              begin: alignment,
-              end: Alignment.center,
+              begin: Alignment.center,
+              end: alignment,
               colors: [
                 color.withOpacity(0.6),
                 color.withOpacity(0.0),
               ],
-              stops: const [0.0, 0.15],
+              stops: const [0.0, 0.4],
             ),
           ),
         ),

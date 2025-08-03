@@ -126,38 +126,14 @@ class _MatchScreenState extends State<MatchScreen> {
                 child: GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   onTap: _tapPlayer1,
-                  child: Container(
-                    color: Colors.transparent,
-                    child: Center(
-                      child: Text(
-                        '$_player1Count',
-                        style: const TextStyle(
-                          color: Colors.blue,
-                          fontSize: 48,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
+                  child: Container(color: Colors.transparent),
                 ),
               ),
               Expanded(
                 child: GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   onTap: _tapPlayer2,
-                  child: Container(
-                    color: Colors.transparent,
-                    child: Center(
-                      child: Text(
-                        '$_player2Count',
-                        style: const TextStyle(
-                          color: Colors.red,
-                          fontSize: 48,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
+                  child: Container(color: Colors.transparent),
                 ),
               ),
             ],
