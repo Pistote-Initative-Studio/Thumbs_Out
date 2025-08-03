@@ -109,10 +109,6 @@ class _MatchScreenState extends State<MatchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final edge = size.width * 0.02;
-    final centerLineWidth = size.width * 0.01;
-
     return Scaffold(
       body: Stack(
         children: [
@@ -130,38 +126,14 @@ class _MatchScreenState extends State<MatchScreen> {
                 child: GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   onTap: _tapPlayer1,
-                  child: Container(
-                    color: Colors.transparent,
-                    child: Center(
-                      child: Text(
-                        '$_player1Count',
-                        style: const TextStyle(
-                          color: Colors.blue,
-                          fontSize: 48,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
+                  child: Container(color: Colors.transparent),
                 ),
               ),
               Expanded(
                 child: GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   onTap: _tapPlayer2,
-                  child: Container(
-                    color: Colors.transparent,
-                    child: Center(
-                      child: Text(
-                        '$_player2Count',
-                        style: const TextStyle(
-                          color: Colors.red,
-                          fontSize: 48,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
+                  child: Container(color: Colors.transparent),
                 ),
               ),
             ],
@@ -183,110 +155,6 @@ class _MatchScreenState extends State<MatchScreen> {
                 ),
               ),
             ],
-          ),
-          IgnorePointer(
-            child: Stack(
-              children: [
-                Positioned(
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  child: Container(
-                    height: edge,
-                    decoration: BoxDecoration(
-                      color: Colors.blueAccent.withOpacity(0.15),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.blueAccent.withOpacity(0.8),
-                          blurRadius: 20,
-                          spreadRadius: 5,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: Container(
-                    height: edge,
-                    decoration: BoxDecoration(
-                      color: Colors.redAccent.withOpacity(0.15),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.redAccent.withOpacity(0.8),
-                          blurRadius: 20,
-                          spreadRadius: 5,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: 0,
-                  bottom: 0,
-                  left: 0,
-                  child: Container(
-                    width: edge,
-                    decoration: BoxDecoration(
-                      color: Colors.blueAccent.withOpacity(0.15),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.blueAccent.withOpacity(0.8),
-                          blurRadius: 20,
-                          spreadRadius: 5,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: 0,
-                  bottom: 0,
-                  right: 0,
-                  child: Container(
-                    width: edge,
-                    decoration: BoxDecoration(
-                      color: Colors.redAccent.withOpacity(0.15),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.redAccent.withOpacity(0.8),
-                          blurRadius: 20,
-                          spreadRadius: 5,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                    width: centerLineWidth,
-                    height: double.infinity,
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        colors: [Colors.blueAccent, Colors.redAccent],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.blueAccent.withOpacity(0.6),
-                          blurRadius: 20,
-                          spreadRadius: 2,
-                        ),
-                        BoxShadow(
-                          color: Colors.redAccent.withOpacity(0.6),
-                          blurRadius: 20,
-                          spreadRadius: 2,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
           ),
           if (countdownText != null) CountdownOverlay(text: countdownText!),
         ],
