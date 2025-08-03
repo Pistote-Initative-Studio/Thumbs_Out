@@ -15,10 +15,10 @@ class MatchScreen extends StatefulWidget {
 }
 
 class _MatchScreenState extends State<MatchScreen> {
-  int blueCount = 0;
-  int redCount = 0;
-  bool blueFlash = false;
-  bool redFlash = false;
+  int _player1Count = 0;
+  int _player2Count = 0;
+  bool _player1Flash = false;
+  bool _player2Flash = false;
   bool matchActive = false;
   String? countdownText = '3';
   Timer? _countdownTimer;
@@ -62,40 +62,40 @@ class _MatchScreenState extends State<MatchScreen> {
     setState(() {
       matchActive = false;
     });
-    final best = LocalStorageService().updateBest(blueCount, redCount);
+    final best = LocalStorageService().updateBest(_player1Count, _player2Count);
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (_) => ResultScreen(
-          blueCount: blueCount,
-          redCount: redCount,
+          blueCount: _player1Count,
+          redCount: _player2Count,
           best: best,
         ),
       ),
     );
   }
 
-  void _tapBlue() {
+  void _tapPlayer1() {
     if (!matchActive) return;
     setState(() {
-      blueCount++;
-      blueFlash = true;
+      _player1Count++;
+      _player1Flash = true;
     });
     Future.delayed(const Duration(milliseconds: 300), () {
       if (mounted) {
-        setState(() => blueFlash = false);
+        setState(() => _player1Flash = false);
       }
     });
   }
 
-  void _tapRed() {
+  void _tapPlayer2() {
     if (!matchActive) return;
     setState(() {
-      redCount++;
-      redFlash = true;
+      _player2Count++;
+      _player2Flash = true;
     });
     Future.delayed(const Duration(milliseconds: 300), () {
       if (mounted) {
-        setState(() => redFlash = false);
+        setState(() => _player2Flash = false);
       }
     });
   }
@@ -112,23 +112,51 @@ class _MatchScreenState extends State<MatchScreen> {
     return Scaffold(
       body: Stack(
         children: [
+          Positioned.fill(
+            child: Image.asset(
+              'assets/images/pvpbackground.png',
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) =>
+                  Container(color: Colors.grey),
+            ),
+          ),
           Column(
             children: [
               Expanded(
                 child: GestureDetector(
                   behavior: HitTestBehavior.opaque,
-                  onTap: _tapBlue,
+                  onTap: _tapPlayer1,
                   child: Container(
-                    color: Colors.blue[100],
+                    color: Colors.transparent,
+                    child: Center(
+                      child: Text(
+                        '$_player1Count',
+                        style: const TextStyle(
+                          color: Colors.blue,
+                          fontSize: 48,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
               Expanded(
                 child: GestureDetector(
                   behavior: HitTestBehavior.opaque,
-                  onTap: _tapRed,
+                  onTap: _tapPlayer2,
                   child: Container(
-                    color: Colors.red[100],
+                    color: Colors.transparent,
+                    child: Center(
+                      child: Text(
+                        '$_player2Count',
+                        style: const TextStyle(
+                          color: Colors.red,
+                          fontSize: 48,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -138,22 +166,21 @@ class _MatchScreenState extends State<MatchScreen> {
             children: [
               Expanded(
                 child: TapFlashOverlay(
-                  active: blueFlash,
+                  active: _player1Flash,
                   color: Colors.blueAccent,
                   alignment: Alignment.topCenter,
                 ),
               ),
               Expanded(
                 child: TapFlashOverlay(
-                  active: redFlash,
+                  active: _player2Flash,
                   color: Colors.redAccent,
                   alignment: Alignment.bottomCenter,
                 ),
               ),
             ],
           ),
-          if (countdownText != null)
-            CountdownOverlay(text: countdownText!),
+          if (countdownText != null) CountdownOverlay(text: countdownText!),
         ],
       ),
     );
